@@ -27,12 +27,18 @@ const (
 )
 
 func GetConfig(c githubapp.Config, scopes []string) *oauth2.Config {
+	var url string
+	if c.ExternalWebURL != "" {
+		url = c.ExternalWebURL
+	} else {
+		url = c.WebURL
+	}
 	return &oauth2.Config{
 		ClientID:     c.OAuth.ClientID,
 		ClientSecret: c.OAuth.ClientSecret,
 		Endpoint: oauth2.Endpoint{
-			AuthURL:  joinURL(c.WebURL, "/login/oauth/authorize"),
-			TokenURL: joinURL(c.WebURL, "/login/oauth/access_token"),
+			AuthURL:  joinURL(url, "/login/oauth/authorize"),
+			TokenURL: joinURL(url, "/login/oauth/access_token"),
 		},
 		Scopes: scopes,
 	}

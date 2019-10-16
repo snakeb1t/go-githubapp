@@ -20,9 +20,10 @@ import (
 )
 
 type Config struct {
-	WebURL   string `yaml:"web_url" json:"webUrl"`
-	V3APIURL string `yaml:"v3_api_url" json:"v3ApiUrl"`
-	V4APIURL string `yaml:"v4_api_url" json:"v4ApiUrl"`
+	WebURL         string `yaml:"web_url" json:"webUrl"`
+	ExternalWebURL string `yaml:"external_web_url" json:"externalWebUrl"`
+	V3APIURL       string `yaml:"v3_api_url" json:"v3ApiUrl"`
+	V4APIURL       string `yaml:"v4_api_url" json:"v4ApiUrl"`
 
 	App struct {
 		IntegrationID int    `yaml:"integration_id" json:"integrationId"`
@@ -41,6 +42,7 @@ type Config struct {
 // start of the environment variable names.
 func (c *Config) SetValuesFromEnv(prefix string) {
 	setStringFromEnv("GITHUB_WEB_URL", prefix, &c.WebURL)
+	setStringFromEnv("GITHUB_EXTERNAL_WEB_URL", prefix, &c.ExternalWebURL)
 	setStringFromEnv("GITHUB_V3_API_URL", prefix, &c.V3APIURL)
 	setStringFromEnv("GITHUB_V4_API_URL", prefix, &c.V4APIURL)
 
